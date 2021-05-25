@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Escape : MonoBehaviour
 {
+    public GameObject MainCamera;
     public GameObject MainMenu;
     public GameObject MainMenuCamera;
     public GameObject StartGameCamera;
@@ -20,6 +21,7 @@ public class Escape : MonoBehaviour
             Car.SetActive(false);
         }
         if (!game) {
+            MainCamera.SetActive(false);
             MainMenu.SetActive(true);
             MainMenuCamera.SetActive(true);
             StartGameCamera.SetActive(false);
