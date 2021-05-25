@@ -8,25 +8,40 @@ public class Music : MonoBehaviour
     public AudioSource source;
     public float newClip;
     public float timer;
-  //  private bool exited = false;
-    void Start() {
-       source =  gameObject.AddComponent<AudioSource>();
-        source.volume = 0.1f;
+    private bool exited = false;
+
+    void Start()
+    {
+        source = gameObject.AddComponent<AudioSource>();
+        source.volume = 0.3f;
     }
-    void Awake() {
-        newCLIP();
-        timer = 0;
-    }
-    void Update() {
+
+    void Update()
+    {
+        if (exited)
+        {
+            newCLIP();
+            timer = 0;
+            exited = false;
+        }
         timer += Time.deltaTime;
-        if (timer >= newClip + 1) {
+        if (timer >= newClip + 0.5)
+        {
             newCLIP();
             timer = 0;
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            exited = true;
+            source.Stop();
+        }
+
     }
-    public void newCLIP() {
+    void newCLIP()
+    {
         int clipNum = Random.Range(0, clips.Length);
-        if (!source.isPlaying) {
+        if (!source.isPlaying)
+        {
             source.loop = true;
             source.PlayOneShot(clips[clipNum]);
         }
